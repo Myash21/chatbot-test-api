@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot powered by Gradio API</title>
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById("user_input").value;
+
+            const response = await fetch("/get_response", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `user_input=${encodeURIComponent(userInput)}`,
+            });
+
+            const data = await response.json();
+            document.getElementById("response").innerText = data.response;
+        }
+    </script>
+</head>
+<body>
+    <h1>Chatbot powered by Gradio API 🤖</h1>
+    <textarea rows="4" id="user_input" placeholder="Enter your message here...."></textarea><br>
+    <button onclick="sendMessage()">💬 SEND MESSAGE</button>
+    <p id="response">Wait for the response...</p>
+</body>
+</html>
